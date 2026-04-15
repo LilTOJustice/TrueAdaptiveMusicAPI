@@ -70,10 +70,10 @@ jobs:
           files: |
             build/libs/!(*-@(dev|sources|javadoc)).jar
 
-          curseforge-id: true-adaptive-music
+          curseforge-id: 1514598
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
           
-          modrinth-id: UeDAoEyD
+          modrinth-id: 2Box4xvp
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
           
           name: "TrueAdaptiveMusic ${{env.MOD_VERSION}} for Minecraft ${{env.MINECRAFT_VERSION}}"
