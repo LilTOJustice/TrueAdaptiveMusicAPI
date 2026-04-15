@@ -1,8 +1,8 @@
 package liltojustice.trueadaptivemusicapi.widget
 
-import net.minecraft.client.gui.screen.Screen
-import net.minecraft.client.gui.widget.ClickableWidget
-import net.minecraft.text.Text
+import net.minecraft.client.gui.components.AbstractWidget
+import net.minecraft.client.gui.screens.Screen
+import net.minecraft.network.chat.Component
 import kotlin.reflect.KType
 
 internal class InputWidgetRegistry {
@@ -17,10 +17,10 @@ internal class InputWidgetRegistry {
         screen: Screen,
         outArgs: MutableList<Any?>,
         arg: WidgetArg,
-        displayName: Text?,
-        tooltipText: Text?,
+        displayName: Component?,
+        tooltipText: Component?,
         onChange: () -> Unit
-    ): ClickableWidget {
+    ): AbstractWidget {
         val displayName = displayName?.string ?: arg.name ?: "Unknown"
         return registry.firstOrNull { entry -> entry.predicate(arg.type) }
             ?.widgetMaker(displayName, screen, outArgs, arg, tooltipText, onChange)
