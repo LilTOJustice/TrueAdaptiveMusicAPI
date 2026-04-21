@@ -1,0 +1,3 @@
+package liltojustice.trueadaptivemusicapi.trigger.state
+
+abstract class TriggerState

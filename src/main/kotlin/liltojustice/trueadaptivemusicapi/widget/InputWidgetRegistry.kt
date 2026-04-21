@@ -12,7 +12,6 @@ internal class InputWidgetRegistry {
         registry.addFirst(WidgetRegistryEntry(predicate, widgetMaker))
     }
 
-    @Suppress("UNUSED")
     fun makeWidget(
         screen: Screen,
         outArgs: MutableList<Any?>,
