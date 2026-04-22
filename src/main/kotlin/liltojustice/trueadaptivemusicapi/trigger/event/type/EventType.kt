@@ -6,27 +6,25 @@ import liltojustice.trueadaptivemusicapi.trigger.arguments.TriggerArguments
 import liltojustice.trueadaptivemusicapi.trigger.state.TriggerState
 import liltojustice.trueadaptivemusicapi.trigger.event.input.EventInput
 import kotlin.reflect.KType
-import kotlin.reflect.full.starProjectedType
 
 @Suppress("UNUSED")
 abstract class EventType<TArg: TriggerArguments, TState: TriggerState, TInput: EventInput>(
-    final override val typeName: String): EventTypeBase, DowncastTriggerType<TArg, TState> {
-    final override val argumentType: KType
-        get() = this::class.typeParameters.first().starProjectedType
+    final override val typeName: String, final override val argumentType: KType
+): EventTypeBase, DowncastTriggerType<TArg, TState> {
 
-    protected open fun validateEvent(arguments: TArg, state: TState, input: TInput): Boolean {
+    protected open fun validate(arguments: TArg, state: TState, input: TInput): Boolean {
         return true
     }
 
-    protected abstract fun createEventState(arguments: TArg): TState
+    protected abstract fun createState(arguments: TArg): TState
 
-    final override fun validate(arguments: TriggerArguments, state: TriggerState, input: EventInput): Boolean {
-        return validateEvent(
+    final override fun validateBase(arguments: TriggerArguments, state: TriggerState, input: EventInput): Boolean {
+        return validate(
             getCastedArguments(arguments), getCastedState(state), getCastedInput(input))
     }
 
-    final override fun createState(arguments: TriggerArguments): TriggerState {
-        return createEventState(getCastedArguments(arguments))
+    final override fun createStateBase(arguments: TriggerArguments): TriggerState {
+        return createState(getCastedArguments(arguments))
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -35,4 +33,7 @@ abstract class EventType<TArg: TriggerArguments, TState: TriggerState, TInput: E
             ?: throw TriggerTypeException("Expected event input type '${this::class.typeParameters[1].name}' but got " +
                     "'${input::class.simpleName}")
     }
+
+    @Suppress("UNUSED")
+    private class Helper<TArg: TriggerArguments>
 }
