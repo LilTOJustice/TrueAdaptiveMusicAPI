@@ -18,7 +18,7 @@ interface TriggerTypeBase {
     val argDescriptions: Map<String, String>
         get() = mapOf()
 
-    fun createState(arguments: TriggerArguments): TriggerState
+    fun createStateBase(arguments: TriggerArguments): TriggerState
 
     fun createArguments(json: JsonObject): TriggerArguments {
         return gson.fromJson(json, argumentType.javaType)

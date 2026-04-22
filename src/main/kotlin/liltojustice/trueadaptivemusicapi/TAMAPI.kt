@@ -69,11 +69,11 @@ object TAMAPI {
         return eventRegistry.createState(eventType, arguments)
     }
 
-    fun makePredicateArguments(triggerType: PredicateTypeBase, vararg args: Any?): TriggerArguments {
+    fun makePredicateArguments(triggerType: PredicateTypeBase, args: List<Any?>): TriggerArguments {
         return predicateRegistry.createArguments(triggerType, args)
     }
 
-    fun makeEventArguments(triggerType: EventTypeBase, vararg args: Any?): TriggerArguments {
+    fun makeEventArguments(triggerType: EventTypeBase, args: List<Any?>): TriggerArguments {
         return eventRegistry.createArguments(triggerType, args)
     }
 
