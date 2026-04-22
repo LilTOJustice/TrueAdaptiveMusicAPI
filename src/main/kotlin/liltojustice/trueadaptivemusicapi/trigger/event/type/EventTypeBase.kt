@@ -6,5 +6,5 @@ import liltojustice.trueadaptivemusicapi.trigger.TriggerTypeBase
 import liltojustice.trueadaptivemusicapi.trigger.event.input.EventInput
 
 interface EventTypeBase: TriggerTypeBase {
-    fun validate(arguments: TriggerArguments, state: TriggerState, input: EventInput): Boolean
+    fun validateBase(arguments: TriggerArguments, state: TriggerState, input: EventInput): Boolean
 }

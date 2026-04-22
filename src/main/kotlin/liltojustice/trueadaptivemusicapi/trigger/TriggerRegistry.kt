@@ -5,15 +5,13 @@ import liltojustice.trueadaptivemusicapi.trigger.state.TriggerState
 import kotlin.reflect.KClass
 import kotlin.reflect.KParameter
 import kotlin.reflect.full.primaryConstructor
+import kotlin.reflect.jvm.jvmErasure
 
 internal abstract class TriggerRegistry<T: TriggerTypeBase> {
     private val registry = mutableMapOf<String, RegistryEntry<T>>()
 
     fun register(triggerType: T) {
-        registry[triggerType.typeName] = RegistryEntry(
-            triggerType,
-            triggerType.argumentType.classifier as KClass<*>
-        )
+        registry[triggerType.typeName] = RegistryEntry(triggerType, triggerType.argumentType.jvmErasure)
     }
 
     fun getArguments(typeName: String): List<KParameter> {
@@ -30,12 +28,12 @@ internal abstract class TriggerRegistry<T: TriggerTypeBase> {
     }
 
     fun createState(triggerType: T, arguments: TriggerArguments): TriggerState {
-        return triggerType.createState(arguments)
+        return triggerType.createStateBase(arguments)
     }
 
-    fun createArguments(triggerType: T, vararg arguments: Any?): TriggerArguments {
-        return registry[triggerType.typeName]?.argumentClass?.primaryConstructor?.call(arguments)
-                as? TriggerArguments
+    fun createArguments(triggerType: T, arguments: List<Any?>): TriggerArguments {
+        return registry[triggerType.typeName]?.argumentClass?.primaryConstructor?.call(
+            *arguments.toTypedArray()) as? TriggerArguments
             ?: throw TriggerTypeException("Failed to create arguments for trigger type '${triggerType.typeName}")
     }
 

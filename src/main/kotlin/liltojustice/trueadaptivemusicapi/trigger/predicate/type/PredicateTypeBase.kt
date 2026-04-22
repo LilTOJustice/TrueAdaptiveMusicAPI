@@ -5,5 +5,7 @@ import liltojustice.trueadaptivemusicapi.trigger.state.TriggerState
 import liltojustice.trueadaptivemusicapi.trigger.TriggerTypeBase
 
 interface PredicateTypeBase: TriggerTypeBase {
-    fun validate(arguments: TriggerArguments, state: TriggerState): Boolean
+    val tickRate: Int
+
+    fun testBase(arguments: TriggerArguments, state: TriggerState): Boolean
 }
