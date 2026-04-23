@@ -1,0 +1,6 @@
+package liltojustice.trueadaptivemusicapi.trigger.predicate
+
+import liltojustice.trueadaptivemusicapi.trigger.TriggerRegistry
+import liltojustice.trueadaptivemusicapi.trigger.predicate.type.PredicateTypeBase
+
+internal class PredicateRegistry: TriggerRegistry<PredicateTypeBase>()
