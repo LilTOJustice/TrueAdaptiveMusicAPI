@@ -8,6 +8,7 @@
   "contact": {},
   "license": "GPL-3.0",
   "environment": "client",
+  "icon": "assets/trueadaptivemusicapi/icon.png",
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-language-kotlin": ">=${kotlin_loader_version}",
