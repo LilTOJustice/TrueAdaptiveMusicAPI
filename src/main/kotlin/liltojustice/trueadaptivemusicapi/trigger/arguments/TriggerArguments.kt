@@ -1,0 +1,3 @@
+package liltojustice.trueadaptivemusicapi.trigger.arguments
+
+abstract class TriggerArguments
