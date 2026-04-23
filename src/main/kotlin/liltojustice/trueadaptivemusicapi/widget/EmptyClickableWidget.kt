@@ -6,8 +6,8 @@ import net.minecraft.client.gui.widget.ClickableWidget
 import net.minecraft.text.Text
 
 class EmptyClickableWidget
-    : AbstractWidget(0, 0, 0, 0, Component.literal("")) {
-    override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, mouseX: Int, mouseY: Int, a: Float) {
+    : ClickableWidget(0, 0, 0, 0, Text.literal("")) {
+    override fun renderWidget(context: DrawContext?, mouseX: Int, mouseY: Int, delta: Float) {
     }
 
     override fun appendClickableNarrations(builder: NarrationMessageBuilder?) {
