@@ -20,7 +20,7 @@ interface TriggerTypeBase {
 
     fun createStateBase(arguments: TriggerArguments): TriggerState
 
-    fun createArguments(json: JsonObject): TriggerArguments {
+    fun createArguments(gson: Gson, json: JsonObject): TriggerArguments {
         return gson.fromJson(json, argumentType.javaType)
     }
 
