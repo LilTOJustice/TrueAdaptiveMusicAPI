@@ -1,3 +1,3 @@
-True Adaptive Music API v1.1.1
+True Adaptive Music API v1.1.2
 
-- Added gson injection for argument deserialization
+- Added event invocation
