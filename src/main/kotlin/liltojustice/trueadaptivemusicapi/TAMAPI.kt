@@ -20,6 +20,7 @@ object TAMAPI {
     private val predicateRegistry = PredicateRegistry()
     private val eventRegistry = EventRegistry()
     private val inputWidgetRegistry = InputWidgetRegistry()
+    private val eventListeners = mutableListOf<(eventType: EventTypeBase) -> Unit>()
 
     fun getPredicateTypeNames(): List<String> {
         return predicateRegistry.getAll().map { it.first }
@@ -43,6 +44,14 @@ object TAMAPI {
 
     fun getEventTypeArguments(typeName: String): List<KParameter> {
         return eventRegistry.getArguments(typeName)
+    }
+
+    fun registerEventListener(listener: (EventTypeBase) -> Unit) {
+        eventListeners.add(listener)
+    }
+
+    fun invokeEvent(eventType: EventTypeBase) {
+        eventListeners.forEach { it.invoke(eventType) }
     }
 
     fun registerPredicateType(predicateType: PredicateTypeBase) {
