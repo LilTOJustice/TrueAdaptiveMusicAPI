@@ -3,6 +3,9 @@ package liltojustice.trueadaptivemusicapi
 import liltojustice.trueadaptivemusicapi.trigger.arguments.TriggerArguments
 import liltojustice.trueadaptivemusicapi.trigger.event.type.EventTypeBase
 import liltojustice.trueadaptivemusicapi.trigger.event.EventRegistry
+import liltojustice.trueadaptivemusicapi.trigger.event.input.EmptyEventInput
+import liltojustice.trueadaptivemusicapi.trigger.event.input.EventInput
+import liltojustice.trueadaptivemusicapi.trigger.event.type.EventType
 import liltojustice.trueadaptivemusicapi.trigger.predicate.PredicateRegistry
 import liltojustice.trueadaptivemusicapi.trigger.predicate.type.PredicateTypeBase
 import liltojustice.trueadaptivemusicapi.trigger.state.TriggerState
@@ -20,7 +23,7 @@ object TAMAPI {
     private val predicateRegistry = PredicateRegistry()
     private val eventRegistry = EventRegistry()
     private val inputWidgetRegistry = InputWidgetRegistry()
-    private val eventListeners = mutableListOf<(eventType: EventTypeBase) -> Unit>()
+    private val eventListeners = mutableListOf<(eventType: EventTypeBase, eventInput: EventInput) -> Unit>()
 
     fun getPredicateTypeNames(): List<String> {
         return predicateRegistry.getAll().map { it.first }
@@ -46,12 +49,16 @@ object TAMAPI {
         return eventRegistry.getArguments(typeName)
     }
 
-    fun registerEventListener(listener: (EventTypeBase) -> Unit) {
+    fun registerEventListener(listener: (EventTypeBase, EventInput) -> Unit) {
         eventListeners.add(listener)
     }
 
-    fun invokeEvent(eventType: EventTypeBase) {
-        eventListeners.forEach { it.invoke(eventType) }
+    fun invokeEvent(eventType: EventTypeBase, eventInput: EventInput) {
+        eventListeners.forEach { it.invoke(eventType, eventInput) }
+    }
+
+    fun invokeEvent(eventType: EventType<*, *, EmptyEventInput>) {
+        eventListeners.forEach { it.invoke(eventType, EmptyEventInput()) }
     }
 
     fun registerPredicateType(predicateType: PredicateTypeBase) {
