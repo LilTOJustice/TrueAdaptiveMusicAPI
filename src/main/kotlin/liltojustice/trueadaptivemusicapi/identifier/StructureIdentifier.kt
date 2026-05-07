@@ -1,28 +1,19 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.client.Minecraft
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.Identifier
-import kotlin.jvm.optionals.getOrNull
+import net.minecraft.client.MinecraftClient
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.util.Identifier
 
 @Suppress("UNUSED")
 class StructureIdentifier(id: Identifier): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
-        return id.toLanguageKey("structure")
+        return id.toTranslationKey("structure")
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return Minecraft.getInstance().singleplayerServer?.allLevels
-                ?.flatMap { level ->
-                    level
-                        .structureManager()
-                        .registryAccess()
-                        .lookup(Registries.STRUCTURE)
-                        .getOrNull()
-                        ?.keySet()
-                        ?: emptyList()
-                }
+            return MinecraftClient.getInstance().server?.worlds
+                ?.flatMap { world -> world.structureAccessor.registryManager.get(RegistryKeys.STRUCTURE).ids }
                 ?.toSet()
                 ?.toList()
                 ?: emptyList()

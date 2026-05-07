@@ -1,29 +1,22 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.client.Minecraft
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.Identifier
-import net.minecraft.world.level.dimension.BuiltinDimensionTypes
-import kotlin.jvm.optionals.getOrNull
+import net.minecraft.client.MinecraftClient
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.util.Identifier
+import net.minecraft.world.dimension.DimensionTypes
 
 @Suppress("UNUSED")
 class DimensionIdentifier(id: Identifier): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
-        return id.toLanguageKey("dimension")
+        return id.toTranslationKey("dimension")
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return Minecraft
-                .getInstance()
-                .level
-                ?.registryAccess()
-                ?.lookup(Registries.DIMENSION_TYPE)
-                ?.getOrNull()
-                ?.keySet()
-                ?.filter { it != BuiltinDimensionTypes.OVERWORLD_CAVES.identifier() }
-                ?.toList()
-                ?: emptyList()
+            return MinecraftClient
+                .getInstance().world?.registryManager?.get(RegistryKeys.DIMENSION_TYPE)?.ids
+                ?.filter { it != DimensionTypes.OVERWORLD_CAVES.value }
+                ?.toList() ?: listOf()
         }
     }
 }
