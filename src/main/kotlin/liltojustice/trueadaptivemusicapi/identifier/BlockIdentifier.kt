@@ -1,28 +1,25 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.Identifier
-import net.minecraft.world.level.block.state.BlockState
-import kotlin.jvm.optionals.getOrNull
+import net.minecraft.block.BlockState
+import net.minecraft.registry.Registries
+import net.minecraft.util.Identifier
 
 @Suppress("UNUSED")
 class BlockIdentifier(id: Identifier): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
-        return id.toLanguageKey("block")
+        return id.toTranslationKey("block")
     }
 
     fun matches(block: BlockState): Boolean {
-        return BuiltInRegistries.BLOCK[id].getOrNull()?.let {
-            block.`is`(it)
-        } ?: BuiltInRegistries.BLOCK.tags.toList().firstOrNull { it.key().location == id }?.key()?.let {
-            block.`is`(it)
-        } ?: false
+        return Registries.BLOCK.streamTags().toList().firstOrNull { it.id == id }?.let {
+            block.isIn(it)
+        } ?: (Registries.BLOCK[id] == block)
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return BuiltInRegistries.BLOCK.keySet().toList() +
-                    BuiltInRegistries.BLOCK.tags.map { it.key().location }.toList()
+            return Registries.BLOCK.keys.toList().map { it.value } +
+                    Registries.BLOCK.streamTags().toList().map { it.id }.filter { it?.namespace != "c" }.toList()
         }
     }
 }

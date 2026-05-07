@@ -1,17 +1,17 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.Identifier
+import net.minecraft.registry.Registries
+import net.minecraft.util.Identifier
 
 @Suppress("UNUSED")
 class FluidIdentifier(id: Identifier): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
-        return id.toLanguageKey("fluid")
+        return id.toTranslationKey("fluid")
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return BuiltInRegistries.FLUID.keySet().toList().filter { it != BuiltInRegistries.FLUID.defaultKey }
+            return Registries.FLUID.keys.map { it.value }.filter { it != Registries.FLUID.defaultId }
         }
     }
 }

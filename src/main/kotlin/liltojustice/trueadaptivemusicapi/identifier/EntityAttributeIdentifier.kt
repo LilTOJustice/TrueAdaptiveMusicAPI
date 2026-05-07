@@ -1,25 +1,25 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.client.Minecraft
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.Identifier
+import net.minecraft.client.MinecraftClient
+import net.minecraft.registry.RegistryKeys
+import net.minecraft.util.Identifier
 import kotlin.jvm.optionals.getOrNull
 
 @Suppress("UNUSED")
 class EntityAttributeIdentifier(id: Identifier): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
-        return id.toLanguageKey("attribute")
+        return id.toTranslationKey("attribute")
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return Minecraft
-                .getInstance().level?.registryAccess()
-                ?.lookup(Registries.ATTRIBUTE)
+            return MinecraftClient
+                .getInstance().world?.registryManager
+                ?.getOptional(RegistryKeys.ATTRIBUTE)
                 ?.getOrNull()
-                ?.keySet()
+                ?.ids
                 ?.toList()
-                ?: emptyList()
+                ?: listOf()
         }
     }
 }

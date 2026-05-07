@@ -1,17 +1,17 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.Identifier
+import net.minecraft.registry.Registries
+import net.minecraft.util.Identifier
 
 @Suppress("UNUSED")
 class StatusEffectIdentifier(id: Identifier): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
-        return id.toLanguageKey("effect")
+        return id.toTranslationKey("effect")
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return BuiltInRegistries.CONSUME_EFFECT_TYPE.keySet().toList()
+            return Registries.STATUS_EFFECT.ids.toList()
         }
     }
 }
