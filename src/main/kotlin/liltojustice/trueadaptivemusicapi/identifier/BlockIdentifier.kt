@@ -13,7 +13,7 @@ class BlockIdentifier(id: Identifier): TypedIdentifier(id) {
     fun matches(block: BlockState): Boolean {
         return Registries.BLOCK.streamTags().toList().firstOrNull { it.id == id }?.let {
             block.isIn(it)
-        } ?: (Registries.BLOCK[id] == block)
+        } ?: (Registries.BLOCK[id] == block.block)
     }
 
     companion object: TypedIdentifierCompanion() {
