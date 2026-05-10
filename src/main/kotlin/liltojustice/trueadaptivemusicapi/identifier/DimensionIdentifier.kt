@@ -14,7 +14,7 @@ class DimensionIdentifier(id: Identifier): TypedIdentifier(id) {
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
             return MinecraftClient
-                .getInstance().world?.registryManager?.get(RegistryKeys.DIMENSION_TYPE)?.ids
+                .getInstance().world?.registryManager?.getOptional(RegistryKeys.DIMENSION_TYPE)?.get()?.ids
                 ?.filter { it != DimensionTypes.OVERWORLD_CAVES.value }
                 ?.toList() ?: listOf()
         }

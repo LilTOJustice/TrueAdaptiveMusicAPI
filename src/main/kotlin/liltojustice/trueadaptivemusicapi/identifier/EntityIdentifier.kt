@@ -11,7 +11,7 @@ class EntityIdentifier(id: Identifier): TypedIdentifier(id) {
     }
 
     fun matches(entity: Entity): Boolean {
-        return Registries.ENTITY_TYPE.streamTags().toList().firstOrNull { it.id == id }?.let {
+        return Registries.ENTITY_TYPE.streamTags().toList().firstOrNull { it.tag.id == id }?.let {
             entity.type.isIn(it)
         } ?: (Registries.ENTITY_TYPE[id] == entity.type)
     }
@@ -19,7 +19,7 @@ class EntityIdentifier(id: Identifier): TypedIdentifier(id) {
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
             return Registries.ENTITY_TYPE.keys.map { it.value }.toList() +
-                    Registries.ENTITY_TYPE.streamTags().toList().map { it.id }.toList()
+                    Registries.ENTITY_TYPE.streamTags().toList().map { it.tag.id }.toList()
         }
     }
 }

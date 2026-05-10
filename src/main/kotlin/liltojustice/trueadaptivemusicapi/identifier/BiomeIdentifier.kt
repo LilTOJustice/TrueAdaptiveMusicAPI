@@ -16,8 +16,8 @@ class BiomeIdentifier(id: Identifier): TypedIdentifier(id) {
 
     fun matches(biome: RegistryEntry<Biome>): Boolean {
         val registry = getBiomeRegistry() ?: return false
-        return registry.streamTags().toList().firstOrNull { it.id == id }?.let {
-            biome.isIn(it)
+        return registry.streamTags().toList().firstOrNull { it.tag.id == id }?.let {
+            biome.isIn(it.tag)
         } ?: (registry[id] == biome.value())
     }
 
@@ -26,7 +26,7 @@ class BiomeIdentifier(id: Identifier): TypedIdentifier(id) {
             val registry = getBiomeRegistry() ?: return emptyList()
 
             return registry.keys.toList().map { it.value } +
-                    registry.streamTags().toList().map { it.id }.filter { it?.namespace != "c" }.toList()
+                    registry.streamTags().toList().map { it.tag.id }.filter { it?.namespace != "c" }.toList()
         }
 
         private fun getBiomeRegistry(): Registry<Biome>? {

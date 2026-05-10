@@ -13,7 +13,9 @@ class StructurePieceIdentifier(id: Identifier): TypedIdentifier(id) {
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
             return MinecraftClient.getInstance().server?.worlds
-                ?.flatMap { world -> world.structureAccessor.registryManager.get(RegistryKeys.STRUCTURE_PIECE).ids }
+                ?.flatMap { world -> world.structureAccessor.registryManager
+                    .getOptional(RegistryKeys.STRUCTURE_PIECE).get().ids
+                }
                 ?.toSet()
                 ?.toList()
                 ?: emptyList()

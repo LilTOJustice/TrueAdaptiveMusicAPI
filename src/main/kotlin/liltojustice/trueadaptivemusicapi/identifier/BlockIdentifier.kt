@@ -11,15 +11,15 @@ class BlockIdentifier(id: Identifier): TypedIdentifier(id) {
     }
 
     fun matches(block: BlockState): Boolean {
-        return Registries.BLOCK.streamTags().toList().firstOrNull { it.id == id }?.let {
-            block.isIn(it)
+        return Registries.BLOCK.streamTags().toList().firstOrNull { it.tag.id == id }?.let {
+            block.isIn(it.tag)
         } ?: (Registries.BLOCK[id] == block.block)
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
             return Registries.BLOCK.keys.toList().map { it.value } +
-                    Registries.BLOCK.streamTags().toList().map { it.id }.filter { it?.namespace != "c" }.toList()
+                    Registries.BLOCK.streamTags().toList().map { it.tag.id }.filter { it?.namespace != "c" }.toList()
         }
     }
 }

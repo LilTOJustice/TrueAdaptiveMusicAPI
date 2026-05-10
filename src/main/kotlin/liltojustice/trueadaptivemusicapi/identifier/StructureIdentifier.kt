@@ -13,7 +13,9 @@ class StructureIdentifier(id: Identifier): TypedIdentifier(id) {
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
             return MinecraftClient.getInstance().server?.worlds
-                ?.flatMap { world -> world.structureAccessor.registryManager.get(RegistryKeys.STRUCTURE).ids }
+                ?.flatMap { world -> world.structureAccessor.registryManager
+                    .getOptional(RegistryKeys.STRUCTURE).get().ids
+                }
                 ?.toSet()
                 ?.toList()
                 ?: emptyList()
