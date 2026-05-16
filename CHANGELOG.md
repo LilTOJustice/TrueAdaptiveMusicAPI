@@ -1,6 +1,3 @@
-True Adaptive Music API v1.1.3
+True Adaptive Music API v1.2.0
 
-- Moved typed identifiers from main mod to api
-- Added StructurePieceIdentifier
-- Added BlockIdentifier
-- Renamed EntityTypeIdentifier to EntityIdentifier
+- Updated versioning
