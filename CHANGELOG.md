@@ -1,4 +1,3 @@
-True Adaptive Music API v1.2.0
+True Adaptive Music API v1.2.2
 
-- Updated versioning
-- Fixed BlockIdentifier match
+- Added MusicSoundEventIdentifier
