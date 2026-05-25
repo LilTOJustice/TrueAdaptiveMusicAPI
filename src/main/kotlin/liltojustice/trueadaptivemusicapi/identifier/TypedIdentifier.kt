@@ -59,11 +59,18 @@ sealed class TypedIdentifier(val id: Identifier) {
     sealed class TypedIdentifierCompanion {
         abstract fun getRegistryIds(): List<Identifier>
         fun initializeFromIdString(type: KType, id: String): TypedIdentifier {
+            return tryInitializeFromIdString(type, id)
+                ?: throw TypedIdentifierException("Failed to initialize ${this::class.simpleName} from id $id")
+        }
+
+        fun tryInitializeFromIdString(type: KType, id: String): TypedIdentifier? {
+            val identifier = Identifier.tryParse(id) ?: return null
             return TypedIdentifier::class.sealedSubclasses
                 .firstOrNull { subclass ->
-                    subclass.createType(
-                        type.arguments, type.isMarkedNullable, type.annotations) == type }
-                ?.primaryConstructor?.call(Identifier.of(id))
+                    subclass.createType(type.arguments, type.isMarkedNullable, type.annotations) == type
+                }
+                ?.primaryConstructor
+                ?.call(identifier)
                 ?: throw TypedIdentifierException("Failed to initialize ${this::class.simpleName} from id $id")
         }
     }
