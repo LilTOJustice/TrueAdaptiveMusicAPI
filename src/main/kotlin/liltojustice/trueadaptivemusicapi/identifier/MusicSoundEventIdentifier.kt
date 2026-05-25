@@ -1,17 +1,17 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.Identifier
+import net.minecraft.registry.Registries
+import net.minecraft.util.Identifier
 
 @Suppress("UNUSED")
 class MusicSoundEventIdentifier(id: Identifier): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
-        return id.toLanguageKey("sound")
+        return id.toTranslationKey("sound")
     }
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return BuiltInRegistries.SOUND_EVENT.keySet().filter { it.path.contains("music.") }.toList()
+            return Registries.SOUND_EVENT.keys.map { it.value }.filter { it.path.contains("music.") }.toList()
         }
     }
 }
