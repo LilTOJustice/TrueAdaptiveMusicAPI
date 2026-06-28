@@ -1,3 +1,3 @@
-True Adaptive Music API v1.2.2
+True Adaptive Music API v1.2.3
 
-- Added MusicSoundEventIdentifier
+- Prettify arguments
