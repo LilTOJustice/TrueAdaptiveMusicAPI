@@ -5,12 +5,18 @@ import liltojustice.trueadaptivemusicapi.trigger.TriggerTypeException
 import liltojustice.trueadaptivemusicapi.trigger.arguments.TriggerArguments
 import liltojustice.trueadaptivemusicapi.trigger.state.TriggerState
 import liltojustice.trueadaptivemusicapi.trigger.event.input.EventInput
+import liltojustice.trueadaptivemusicapi.util.StringExtensions.prettify
 import kotlin.reflect.KType
+import kotlin.reflect.full.declaredMembers
+import kotlin.reflect.jvm.jvmErasure
 
 @Suppress("UNUSED")
 abstract class EventType<TArg: TriggerArguments, TState: TriggerState, TInput: EventInput>(
     final override val typeName: String, final override val argumentType: KType
 ): EventTypeBase, DowncastTriggerType<TArg, TState> {
+    override val argDisplayNames: Map<String, String>
+        get() = super.argDisplayNames +
+                argumentType.jvmErasure.declaredMembers.map { it.name }.associateWith { it.prettify() }
 
     protected open fun validate(arguments: TArg, state: TState, input: TInput): Boolean {
         return true
