@@ -3,12 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "2.3.20"
-    id("net.fabricmc.fabric-loom") version "1.15-SNAPSHOT"
+    id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
     id("maven-publish")
 }
 
 version = project.property("mod_version") as String
-group = project.property("maven_group") as String
+group = project.property("mod_group_id") as String
 
 base {
     archivesName.set(project.property("archives_base_name") as String)
@@ -36,8 +36,8 @@ repositories {
 dependencies {
     // To change the versions see the gradle.properties file
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
-    implementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
-    implementation("net.fabricmc:fabric-language-kotlin:${project.property("kotlin_loader_version")}")
+    implementation("net.fabricmc:fabric-loader:${project.property("fabric_loader_version")}")
+    implementation("net.fabricmc:fabric-language-kotlin:${project.property("fabric_kotlin_version")}")
 
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 }
@@ -45,15 +45,25 @@ dependencies {
 tasks.processResources {
     inputs.property("version", project.version)
     inputs.property("minecraft_version", project.property("minecraft_version"))
-    inputs.property("loader_version", project.property("loader_version"))
+    inputs.property("loader_version", project.property("fabric_loader_version"))
     filteringCharset = "UTF-8"
 
     filesMatching("fabric.mod.json") {
         expand(
-            "version" to project.version,
+            "mod_id" to project.property("mod_id")!!,
+            "mod_version" to project.version,
+            "mod_name" to project.property("mod_name")!!,
+            "mod_description" to project.property("mod_description")!!,
+            "mod_authors" to project.property("mod_authors")!!,
+            "mod_home" to project.property("mod_home")!!,
+            "mod_issues" to project.property("mod_issues")!!,
+            "mod_source" to project.property("mod_source")!!,
+            "mod_license" to project.property("mod_license")!!,
+            "mod_icon" to project.property("mod_icon")!!,
             "minecraft_version" to project.property("minecraft_version")!!,
-            "loader_version" to project.property("loader_version")!!,
-            "kotlin_loader_version" to project.property("kotlin_loader_version")!!
+            "minecraft_version_range" to project.property("minecraft_version_range")!!,
+            "loader_version" to project.property("fabric_loader_version")!!,
+            "kotlin_loader_version" to project.property("fabric_kotlin_version")!!
         )
     }
 }
