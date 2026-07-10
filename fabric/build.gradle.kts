@@ -17,7 +17,6 @@ base {
 val targetJavaVersion = 25
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-    withSourcesJar()
 }
 
 repositories {
