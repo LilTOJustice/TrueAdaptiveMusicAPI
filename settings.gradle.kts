@@ -11,5 +11,4 @@ pluginManagement {
     }
 }
 
-//include("neoforge")
-include("fabric")
+include("fabric", "neoforge")

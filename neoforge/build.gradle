@@ -6,7 +6,21 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.3.20'
 }
 
-version = mod_version
+sourceSets {
+    main {
+        java {
+            srcDirs += "../common/src/main/java"
+        }
+        kotlin {
+            srcDirs += "../common/src/main/kotlin"
+        }
+        resources {
+            srcDirs += "../common/src/main/resources"
+        }
+    }
+}
+
+version = mod_version + '+' + minecraft_version
 group = mod_group_id
 
 repositories {
@@ -85,7 +99,6 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
     implementation 'thedarkcolour:kotlinforforge-neoforge:' + forge_kotlin_version
-    implementation project(":common")
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
