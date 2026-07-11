@@ -12,9 +12,9 @@ import liltojustice.trueadaptivemusicapi.trigger.state.TriggerState
 import liltojustice.trueadaptivemusicapi.widget.InputWidgetRegistry
 import liltojustice.trueadaptivemusicapi.widget.WidgetArg
 import liltojustice.trueadaptivemusicapi.widget.WidgetMaker
-import net.minecraft.client.gui.screen.Screen
-import net.minecraft.client.gui.widget.ClickableWidget
-import net.minecraft.text.Text
+import net.minecraft.client.gui.components.AbstractWidget
+import net.minecraft.client.gui.screens.Screen
+import net.minecraft.network.chat.Component
 import kotlin.reflect.KParameter
 import kotlin.reflect.KType
 
@@ -97,10 +97,10 @@ object TAMAPI {
         screen: Screen,
         outArgs: MutableList<Any?>,
         arg: WidgetArg,
-        displayName: Text?,
-        tooltipText: Text?,
+        displayName: Component?,
+        tooltipText: Component?,
         onChange: () -> Unit
-    ): ClickableWidget {
+    ): AbstractWidget {
         return inputWidgetRegistry.makeWidget(screen, outArgs, arg, displayName, tooltipText, onChange)
     }
 }
