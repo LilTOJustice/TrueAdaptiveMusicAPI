@@ -94,7 +94,7 @@ jobs:
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           files: |
-            build/neoforge/libs/!(*-@(dev|sources|javadoc)).jar
+            build/forge/libs/!(*-@(dev|sources|javadoc)).jar
 
           curseforge-id: "${{env.CURSEFORGE_ID}}"
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
