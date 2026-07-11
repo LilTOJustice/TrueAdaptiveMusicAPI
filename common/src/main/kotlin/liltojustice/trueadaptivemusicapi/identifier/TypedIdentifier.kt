@@ -75,7 +75,6 @@ sealed class TypedIdentifier(val id: Identifier) {
                 }
                 ?.primaryConstructor
                 ?.call(identifier)
-                ?: throw TypedIdentifierException("Failed to initialize ${this::class.simpleName} from id $id")
         }
     }
 
