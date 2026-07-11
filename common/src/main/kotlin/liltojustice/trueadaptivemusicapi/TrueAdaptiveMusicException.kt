@@ -1,4 +1,5 @@
 package liltojustice.trueadaptivemusicapi
+
 open class TrueAdaptiveMusicException(message: String? = null, inner: Exception? = null): Exception(message, inner) {
     override fun toString(): String {
         return cause?.let {
@@ -12,7 +13,7 @@ open class TrueAdaptiveMusicException(message: String? = null, inner: Exception?
 
     private fun stackTraceToString(): String {
         val result = StringBuilder()
-        stackTrace.forEach { element -> result.append("\n${element.toString()}") }
+        stackTrace.forEach { element -> result.append("\n$element") }
 
         return result.toString()
     }
