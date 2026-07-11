@@ -1,3 +1,3 @@
-True Adaptive Music API v1.2.3
+True Adaptive Music API v1.3.0
 
-- Prettify arguments
+- Neo/Forge support!
