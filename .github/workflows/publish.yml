@@ -87,7 +87,7 @@ jobs:
 
           java: "${{env.JAVA_VERSION}}"
 
-      - name: Publish Neoforge
+      - name: Publish Forge
         env:
           MINECRAFT_VERSION: ${{needs.determine-versions.outputs.minecraft_version}}
           MOD_VERSION: ${{needs.determine-versions.outputs.mod_version}}
@@ -102,7 +102,7 @@ jobs:
           modrinth-id: "${{env.MODRINTH_ID}}"
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
 
-          name: "True Adaptive Music API ${{env.MOD_VERSION}} for Minecraft Neoforge ${{env.MINECRAFT_VERSION}}"
+          name: "True Adaptive Music API ${{env.MOD_VERSION}} for Minecraft Forge ${{env.MINECRAFT_VERSION}}"
           version: "${{env.MOD_VERSION}}+${{env.MINECRAFT_VERSION}}"
           version-type: "${{env.VERSION_TYPE}}"
           changelog-file: "${{env.CHANGELOG_FILE}}"
