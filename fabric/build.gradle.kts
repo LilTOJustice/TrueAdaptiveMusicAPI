@@ -25,9 +25,9 @@ repositories {
 dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     mappings(loom.officialMojangMappings())
-    implementation("net.fabricmc:fabric-loader:${project.property("fabric_loader_version")}")
-    implementation("net.fabricmc:fabric-language-kotlin:${project.property("fabric_kotlin_version")}")
-    implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
+    modImplementation("net.fabricmc:fabric-loader:${project.property("fabric_loader_version")}")
+    modImplementation("net.fabricmc:fabric-language-kotlin:${project.property("fabric_kotlin_version")}")
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 }
 
 tasks.processResources {
