@@ -20,7 +20,7 @@ sealed class TypedIdentifier(val id: ResourceLocation) {
         return super.equals(other) || (other as? TypedIdentifier)?.id == id
     }
 
-    fun toTranslationKey(prefix: String): String {
+    fun toLanguageKey(prefix: String): String {
         return id.toLanguageKey(prefix)
     }
 
