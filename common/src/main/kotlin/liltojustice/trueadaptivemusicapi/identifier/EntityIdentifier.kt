@@ -1,28 +1,25 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.Entity
-import kotlin.jvm.optionals.getOrNull
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
 
 @Suppress("UNUSED")
-class EntityIdentifier(id: Identifier): TypedIdentifier(id) {
+class EntityIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
         return id.toLanguageKey("entity")
     }
 
     fun matches(entity: Entity): Boolean {
-        return BuiltInRegistries.ENTITY_TYPE[id].getOrNull()?.let {
-            entity.`is`(it)
-        } ?: BuiltInRegistries.ENTITY_TYPE.tags.toList().firstOrNull { it.key().location == id }?.key()?.let {
-            entity.`is`(it)
-        } ?: false
+        return BuiltInRegistries.ENTITY_TYPE.tags.toList().firstOrNull { it.key().location == id }?.let {
+            entity.type.`is`(it)
+        } ?: (BuiltInRegistries.ENTITY_TYPE.getValue(id) == entity.type)
     }
 
     companion object: TypedIdentifierCompanion() {
-        override fun getRegistryIds(): List<Identifier> {
-            return BuiltInRegistries.ENTITY_TYPE.keySet().toList() +
-                    BuiltInRegistries.ENTITY_TYPE.tags.map { it.key().location }.toList()
+        override fun getRegistryIds(): List<ResourceLocation> {
+            return BuiltInRegistries.ENTITY_TYPE.registryKeySet().map { it.location() }.toList() +
+                    BuiltInRegistries.ENTITY_TYPE.tags.toList().map { it.key().location }.toList()
         }
     }
 }

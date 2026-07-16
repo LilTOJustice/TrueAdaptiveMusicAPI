@@ -1,35 +1,32 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
 import net.minecraft.client.Minecraft
-import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.Identifier
+import net.minecraft.core.Holder
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.biome.Biome
 import kotlin.jvm.optionals.getOrNull
 
 @Suppress("UNUSED")
-class BiomeIdentifier(id: Identifier): TypedIdentifier(id) {
+class BiomeIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
         return id.toLanguageKey("biome")
     }
 
     fun matches(biome: Holder<Biome>): Boolean {
         val registry = getBiomeRegistry() ?: return false
-
-        return registry[id].getOrNull()?.let {
+        return registry.tags.toList().firstOrNull { it.key().location == id }?.let {
             biome.`is`(it.key())
-        } ?: registry.tags.toList().firstOrNull { it.key().location == id }?.key()?.let {
-            biome.`is`(it)
-        } ?: false
+        } ?: (registry.getValue(id) == biome.value())
     }
 
     companion object: TypedIdentifierCompanion() {
-        override fun getRegistryIds(): List<Identifier> {
+        override fun getRegistryIds(): List<ResourceLocation> {
             val registry = getBiomeRegistry() ?: return emptyList()
 
-            return registry.keySet().toList() +
-                    registry.tags.map { it.key().location }.filter { it.namespace != "c" }.toList()
+            return registry.registryKeySet().toList().map { it.location() } +
+                    registry.tags.toList().map { it.key().location }.filter { it.namespace != "c" }.toList()
         }
 
         private fun getBiomeRegistry(): Registry<Biome>? {

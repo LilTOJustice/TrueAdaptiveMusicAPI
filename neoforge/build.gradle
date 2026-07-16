@@ -36,16 +36,12 @@ base {
     archivesName = archives_base_name
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
-kotlin.jvmToolchain(25)
+var javaVersion = java_version.toInteger()
+java.toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+kotlin.jvmToolchain(javaVersion)
 
 neoForge {
     version = project.neoforge_version
-
-    parchment {
-        mappingsVersion = project.parchment_mappings_version
-        minecraftVersion = project.parchment_minecraft_version
-    }
 
     accessTransformers.from('src/main/resources/META-INF/accesstransformer.cfg')
 

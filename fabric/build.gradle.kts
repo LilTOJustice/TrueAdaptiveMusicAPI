@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "2.3.20"
-    id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
+    id("net.fabricmc.fabric-loom-remap") version "1.17-SNAPSHOT"
     id("maven-publish")
 }
 
@@ -14,16 +14,15 @@ base {
     archivesName.set(project.property("archives_base_name") as String)
 }
 
-val targetJavaVersion = 25
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-}
+val targetJavaVersion = (project.property("java_version") as String).toInt()
+java.toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
 
 repositories {
 }
 
 dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
+    mappings(loom.officialMojangMappings())
     implementation("net.fabricmc:fabric-loader:${project.property("fabric_loader_version")}")
     implementation("net.fabricmc:fabric-language-kotlin:${project.property("fabric_kotlin_version")}")
     implementation("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
