@@ -33,10 +33,9 @@ base {
     archivesName = archives_base_name + "-forge"
 }
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
-}
-kotlin.jvmToolchain(17)
+var javaVersion = java_version.toInteger()
+java.toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+kotlin.jvmToolchain(javaVersion)
 
 minecraft {
     mappings channel: "official", version: minecraft_version
