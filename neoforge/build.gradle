@@ -36,8 +36,9 @@ base {
     archivesName = archives_base_name + "-neoforge"
 }
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(25)
-kotlin.jvmToolchain(25)
+var javaVersion = java_version.toInteger()
+java.toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+kotlin.jvmToolchain(javaVersion)
 
 neoForge {
     version = project.neoforge_version
