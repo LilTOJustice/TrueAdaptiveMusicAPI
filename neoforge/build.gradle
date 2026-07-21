@@ -152,7 +152,7 @@ tasks.jar {
 
 publishing {
     publications {
-        create("NeoForge", MavenPublication) {
+        create("neoforge", MavenPublication) {
             artifactId = mod_id
             from components.java
         }
