@@ -67,5 +67,5 @@ jobs:
           MOD_VERSION: ${{needs.determine-versions.outputs.mod_version}}
           GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
         run: |
-          mvn --batch-mode -Dmaven.repo.remote=https://maven.fabricmc.net/ -f build/fabric/publications/fabric/pom-default.xml deploy
-          mvn --batch-mode -Dmaven.repo.remote=https://maven.neoforged.net/releases,https://thedarkcolour.github.io/KotlinForForge/ -f build/neoforge/publications/neoforge/pom-default.xml deploy
+          mvn --batch-mode -f build/fabric/publications/fabric/pom-default.xml deploy
+          mvn --batch-mode -f build/neoforge/publications/neoforge/pom-default.xml deploy
