@@ -1,0 +1,10 @@
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>liltojustice</groupId>
+        <artifactId>trueadaptivemusic</artifactId>
+        <version>1</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <artifactId>trueadaptivemusic-forge</artifactId>
+</project>
