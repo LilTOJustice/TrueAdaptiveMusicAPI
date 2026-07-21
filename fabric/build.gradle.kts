@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "2.3.20"
     id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
-    id("maven-publish")
 }
 
 version = "${project.property("mod_version") as String}+${project.property("minecraft_version")}"
