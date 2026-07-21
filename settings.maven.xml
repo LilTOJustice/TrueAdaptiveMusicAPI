@@ -1,6 +1,9 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.1.0">
     <profiles>
         <profile>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <repositories>
                 <repository>
                     <id>fabricmc</id>
