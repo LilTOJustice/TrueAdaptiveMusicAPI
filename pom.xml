@@ -1,7 +1,7 @@
 <project>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>trueadaptivemusicapi</artifactId>
     <groupId>liltojustice</groupId>
+    <artifactId>trueadaptivemusicapi</artifactId>
     <version>${mod_version}</version>
     <distributionManagement>
         <repository>
