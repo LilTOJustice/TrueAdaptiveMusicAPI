@@ -149,3 +149,12 @@ idea {
 tasks.jar {
     archiveVersion = "neoforge-${version}"
 }
+
+publishing {
+    publications {
+        create("NeoForge", MavenPublication) {
+            artifactId = mod_id
+            from components.java
+        }
+    }
+}
