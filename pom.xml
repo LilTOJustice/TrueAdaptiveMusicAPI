@@ -2,6 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>liltojustice</groupId>
     <artifactId>trueadaptivemusicapi</artifactId>
+    <version>1</version>
     <distributionManagement>
         <repository>
             <id>github</id>
