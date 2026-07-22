@@ -90,7 +90,7 @@ sourceSets {
 publishing {
     publications {
         create<MavenPublication>("fabric") {
-            artifactId = "${project.property("mod_id")}-${project.property("minecraft_version")}-fabric"
+            artifactId = "${project.property("mod_id")}-fabric"
             from(components["java"])
         }
     }
