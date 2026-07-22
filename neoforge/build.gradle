@@ -140,7 +140,7 @@ tasks.jar {
 publishing {
     publications {
         create("neoforge", MavenPublication) {
-            artifactId = mod_id + "-neoforge"
+            artifactId = "${mod_id}-${minecraft_version}-neoforge"
             from components.java
         }
     }
