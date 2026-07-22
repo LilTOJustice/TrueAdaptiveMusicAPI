@@ -11,7 +11,7 @@
                 </repository>
                 <repository>
                     <id>neoforged</id>
-                    <url>maven.repo.remote=https://maven.neoforged.net/releases</url>
+                    <url>https://maven.neoforged.net/releases</url>
                 </repository>
                 <repository>
                     <id>kff</id>
