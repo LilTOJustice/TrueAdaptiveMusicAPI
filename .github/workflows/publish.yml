@@ -58,7 +58,7 @@ jobs:
 
       - name: Publish
         env:
-          GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_PACKAGE_TOKEN }}
+          GITHUB_PACKAGE_TOKEN: ${{ secrets.PACKAGE_GITHUB_TOKEN }}
         run: |
           ./gradlew :fabric:publish
           ./gradlew :neoforge:publish
