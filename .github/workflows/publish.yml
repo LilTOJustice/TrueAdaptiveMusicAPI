@@ -17,7 +17,7 @@ env:
 
 permissions:
   contents: write
-  
+
 jobs:
   determine-versions:
     runs-on: ubuntu-latest
@@ -76,10 +76,10 @@ jobs:
 
           curseforge-id: "${{env.CURSEFORGE_ID}}"
           curseforge-token: "${{env.CURSEFORGE_TOKEN}}"
-          
+
           modrinth-id: "${{env.MODRINTH_ID}}"
           modrinth-token: "${{env.MODRINTH_TOKEN}}"
-          
+
           name: "True Adaptive Music API ${{env.MOD_VERSION}} for Minecraft Fabric ${{env.MINECRAFT_VERSION}}"
           version: "${{env.MOD_VERSION}}+${{env.MINECRAFT_VERSION}}"
           version-type: "${{env.VERSION_TYPE}}"
