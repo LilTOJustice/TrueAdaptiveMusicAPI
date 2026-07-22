@@ -122,19 +122,6 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 sourceSets.main.resources.srcDir generateModMetadata
 neoForge.ideSyncTask generateModMetadata
 
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
-        }
-    }
-}
-
 idea {
     module {
         downloadSources = true
@@ -144,4 +131,24 @@ idea {
 
 tasks.jar {
     archiveVersion = "neoforge-${version}"
+}
+
+publishing {
+    publications {
+        create("neoforge", MavenPublication) {
+            artifactId = "${mod_id}-${minecraft_version}-neoforge"
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/liltojustice/${project.property("archives_base_name")}")
+            credentials {
+                username = "LilTOJustice"
+                password = System.getenv("GITHUB_PACKAGE_TOKEN")
+            }
+        }
+    }
 }
