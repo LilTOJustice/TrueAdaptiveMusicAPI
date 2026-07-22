@@ -56,10 +56,10 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
 
-      - name: Generate POMs
+      - name: Publish Locally
         run: |
-          ./gradlew generatePomFileForFabricPublication
-          ./gradlew generatePomFileForNeoforgePublication
+          ./gradlew publishFabricPublicationToMavenLocal
+          ./gradlew publishNeoforgePublicationToMavenLocal
 
       - name: Publish
         env:
