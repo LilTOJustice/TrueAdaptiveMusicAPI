@@ -37,7 +37,10 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
 
-      - name: Publish
+      - name: Build
+        run: ./gradlew clean build
+
+      - name: Publish Fabric
         env:
           MINECRAFT_VERSION: ${{needs.determine-versions.outputs.minecraft_version}}
           MOD_VERSION: ${{needs.determine-versions.outputs.mod_version}}
