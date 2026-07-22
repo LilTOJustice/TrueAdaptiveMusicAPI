@@ -56,16 +56,9 @@ jobs:
         if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
 
-      - name: Publish Locally
-        run: |
-          ./gradlew publishFabricPublicationToMavenLocal
-          ./gradlew publishNeoforgePublicationToMavenLocal
-
       - name: Publish
         env:
-          MINECRAFT_VERSION: ${{needs.determine-versions.outputs.minecraft_version}}
-          MOD_VERSION: ${{needs.determine-versions.outputs.mod_version}}
-          GITHUB_TOKEN: ${{ secrets.PUBLISH_GITHUB_TOKEN }}
+          GITHUB_PACKAGE_TOKEN: ${{ secrets.GITHUB_PACKAGE_TOKEN }}
         run: |
-          mvn -s settings.maven.xml --batch-mode -f build/fabric/publications/fabric/pom-default.xml deploy
-          mvn -s settings.maven.xml --batch-mode -f build/neoforge/publications/neoforge/pom-default.xml deploy
+          ./gradlew :fabric:publish
+          ./gradlew :neoforge:publish
