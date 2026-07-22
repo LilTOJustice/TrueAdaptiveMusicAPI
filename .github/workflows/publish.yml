@@ -68,7 +68,7 @@ jobs:
         with:
           tag_name: ${{ env.MINECRAFT_VERSION }}+${{ env.MOD_VERSION }}-fabric
           body_path: CHANGELOG.md
-          files: build/fabric/publications/fabric/*
+          artficats: build/fabric/publications/fabric/*
 
       - name: Release NeoForge
         uses: actions/create-release@v1
@@ -79,5 +79,5 @@ jobs:
         with:
           tag_name: ${{ env.MINECRAFT_VERSION }}+${{ env.MOD_VERSION }}-neoforge
           body_path: CHANGELOG.md
-          files: build/neoforge/publications/neoforge/*
+          artifacts: build/neoforge/publications/neoforge/*
 
