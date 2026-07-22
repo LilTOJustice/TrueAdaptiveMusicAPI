@@ -89,8 +89,19 @@ sourceSets {
 publishing {
     publications {
         create<MavenPublication>("fabric") {
-            artifactId = project.property("mod_id") as String
+            artifactId = project.property("mod_id") as String + "-fabric"
             from(components["java"])
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/liltojustice/${project.property("archives_base_name")}")
+            credentials {
+                username = "LilTOJustice"
+                password = System.getenv("GITHUB_PACKAGE_TOKEN")
+            }
         }
     }
 }
