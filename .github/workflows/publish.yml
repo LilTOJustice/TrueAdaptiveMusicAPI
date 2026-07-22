@@ -60,24 +60,24 @@ jobs:
         run: ./gradlew publishToMavenLocal
 
       - name: Release Fabric
-        uses: actions/create-release@v1
+        uses: ncipollo/release-action@v1
         env:
           MINECRAFT_VERSION: ${{needs.determine-versions.outputs.minecraft_version}}
           MOD_VERSION: ${{needs.determine-versions.outputs.mod_version}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.MINECRAFT_VERSION }}+${{ env.MOD_VERSION }}-fabric
-          body_path: CHANGELOG.md
-          artifacts: build/fabric/publications/fabric/*
+          tag: ${{ env.MINECRAFT_VERSION }}+${{ env.MOD_VERSION }}-fabric
+          bodyFile: "CHANGELOG.md"
+          artifacts: "build/fabric/publications/fabric/*"
 
       - name: Release NeoForge
-        uses: actions/create-release@v1
+        uses: ncipollo/release-action@v1
         env:
           MINECRAFT_VERSION: ${{needs.determine-versions.outputs.minecraft_version}}
           MOD_VERSION: ${{needs.determine-versions.outputs.mod_version}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.MINECRAFT_VERSION }}+${{ env.MOD_VERSION }}-neoforge
-          body_path: CHANGELOG.md
-          artifacts: build/neoforge/publications/neoforge/*
+          tag: ${{ env.MINECRAFT_VERSION }}+${{ env.MOD_VERSION }}-neoforge
+          bodyFile: "CHANGELOG.md"
+          artifacts: "build/neoforge/publications/neoforge/*"
 
