@@ -17,9 +17,6 @@ base {
 val targetJavaVersion = (project.property("java_version") as String).toInt()
 java.toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
 
-repositories {
-}
-
 dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
     mappings(loom.officialMojangMappings())
