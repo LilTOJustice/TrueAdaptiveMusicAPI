@@ -14,12 +14,9 @@ base {
     archivesName.set(project.property("archives_base_name") as String)
 }
 
-val targetJavaVersion = 25
+val targetJavaVersion = (project.property("java_version") as String).toInt()
 java {
     toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-}
-
-repositories {
 }
 
 dependencies {
