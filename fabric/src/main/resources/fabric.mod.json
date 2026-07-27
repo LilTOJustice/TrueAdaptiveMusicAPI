@@ -11,7 +11,7 @@
     "sources": "${mod_source}"
   },
   "license": "${mod_license}",
-  "environment": "client",
+  "environment": "*",
   "icon": "${mod_icon}",
   "depends": {
     "fabricloader": ">=${loader_version}",
