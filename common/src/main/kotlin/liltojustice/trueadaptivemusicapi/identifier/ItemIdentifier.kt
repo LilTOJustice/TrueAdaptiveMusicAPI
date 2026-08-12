@@ -4,12 +4,12 @@ import net.minecraft.client.Minecraft
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import kotlin.jvm.optionals.getOrNull
 
 @Suppress("UNUSED")
-class ItemIdentifier(id: Identifier): TypedIdentifier(id) {
+class ItemIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
         return id.toLanguageKey("item")
     }
@@ -25,7 +25,7 @@ class ItemIdentifier(id: Identifier): TypedIdentifier(id) {
     }
 
     companion object: TypedIdentifierCompanion() {
-        override fun getRegistryIds(): List<Identifier> {
+        override fun getRegistryIds(): List<ResourceLocation> {
             val registry = getItemRegistry() ?: return emptyList()
 
             return registry.keySet().toList() +
