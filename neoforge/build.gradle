@@ -2,7 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'idea'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.147'
     id 'org.jetbrains.kotlin.jvm' version '2.3.20'
 }
 
@@ -25,6 +25,10 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven {
+        name = 'Nyon'
+        url = 'https://repo.nyon.dev/releases'
+    }
     maven {
         name = 'Kotlin for Forge'
         url = 'https://thedarkcolour.github.io/KotlinForForge/'
@@ -98,7 +102,7 @@ neoForge {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 dependencies {
-    implementation 'thedarkcolour:kotlinforforge-neoforge:' + forge_kotlin_version
+    implementation 'dev.nyon:KotlinLangForge:2.14.1-k2.4.20-3.1+neoforge'
 }
 
 var generateModMetadata = tasks.register("generateModMetadata", ProcessResources) {
