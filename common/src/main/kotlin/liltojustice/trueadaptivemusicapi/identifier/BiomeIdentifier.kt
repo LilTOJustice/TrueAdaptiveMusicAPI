@@ -29,7 +29,7 @@ class BiomeIdentifier(id: Identifier): TypedIdentifier(id) {
             val registry = getBiomeRegistry() ?: return emptyList()
 
             return registry.keySet().toList() +
-                    registry.tags.map { it.key().location }.filter { it.namespace != "c" }.toList()
+                    registry.tags.map { it.key().location }.toList()
         }
 
         private fun getBiomeRegistry(): Registry<Biome>? {
