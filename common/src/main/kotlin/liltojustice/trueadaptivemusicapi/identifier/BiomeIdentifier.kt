@@ -25,8 +25,8 @@ class BiomeIdentifier(id: ResourceLocation): TypedIdentifier(id) {
         override fun getRegistryIds(): List<ResourceLocation> {
             val registry = getBiomeRegistry() ?: return emptyList()
 
-            return registry.registryKeySet().toList().map { it.location() } +
-                    registry.tagNames.toList().map { it.location }.filter { it.namespace != "c" }.toList()
+            return registry.keySet().toList() +
+                    registry.tags.map { it.key().location }.toList()
         }
 
         private fun getBiomeRegistry(): Registry<Biome>? {

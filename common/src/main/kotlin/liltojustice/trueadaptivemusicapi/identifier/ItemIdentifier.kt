@@ -26,8 +26,8 @@ class ItemIdentifier(id: ResourceLocation): TypedIdentifier(id) {
         override fun getRegistryIds(): List<ResourceLocation> {
             val registry = getItemRegistry() ?: return emptyList()
 
-            return registry.registryKeySet().toList().map { it.location() } +
-                    registry.tagNames.toList().map { it.location }.filter { it.namespace != "c" }.toList()
+            return registry.keySet().toList() +
+                    registry.tags.map { it.key().location }.toList()
         }
 
         private fun getItemRegistry(): Registry<Item>? {
