@@ -29,7 +29,7 @@ class ItemIdentifier(id: Identifier): TypedIdentifier(id) {
             val registry = getItemRegistry() ?: return emptyList()
 
             return registry.keySet().toList() +
-                    registry.tags.map { it.key().location }.filter { it.namespace != "c" }.toList()
+                    registry.tags.map { it.key().location }.toList()
         }
 
         private fun getItemRegistry(): Registry<Item>? {
