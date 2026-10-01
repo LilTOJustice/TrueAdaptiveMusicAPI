@@ -27,7 +27,7 @@ class ItemIdentifier(id: ResourceLocation): TypedIdentifier(id) {
             val registry = getItemRegistry() ?: return emptyList()
 
             return registry.keySet().toList() +
-                    registry.tags.map { it.key().location }.toList()
+                    registry.tagNames.toList().map { it.location }.toList()
         }
 
         private fun getItemRegistry(): Registry<Item>? {
