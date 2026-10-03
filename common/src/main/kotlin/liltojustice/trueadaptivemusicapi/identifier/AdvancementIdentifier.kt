@@ -16,7 +16,7 @@ class AdvancementIdentifier(id: ResourceLocation): TypedIdentifier(id) {
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<ResourceLocation> {
-            return Minecraft.getInstance().connection?.advancements?.advancements?.allAdvancements?.map { it.id }
+            return Minecraft.getInstance().singleplayerServer?.advancements?.allAdvancements?.map { it.id }
                 ?: emptyList()
         }
     }
