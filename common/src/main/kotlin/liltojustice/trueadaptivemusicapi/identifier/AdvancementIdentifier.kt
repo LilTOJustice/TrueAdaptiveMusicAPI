@@ -2,7 +2,7 @@ package liltojustice.trueadaptivemusicapi.identifier
 
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.client.Minecraft
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 
 @Suppress("UNUSED")
 class AdvancementIdentifier(id: ResourceLocation): TypedIdentifier(id) {
@@ -15,7 +15,7 @@ class AdvancementIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     }
 
     companion object: TypedIdentifierCompanion() {
-        override fun getRegistryIds(): List<Identifier> {
+        override fun getRegistryIds(): List<ResourceLocation> {
             return Minecraft.getInstance().singleplayerServer?.advancements?.allAdvancements?.map { it.id }
                 ?: emptyList()
         }
