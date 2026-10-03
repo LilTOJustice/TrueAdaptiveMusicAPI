@@ -5,11 +5,11 @@ import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.client.Minecraft
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.Registries
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import kotlin.jvm.optionals.getOrNull
 
 @Suppress("UNUSED")
-class AdvancementIdentifier(id: Identifier): TypedIdentifier(id) {
+class AdvancementIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     override fun toPrefixedLanguageKey(): String {
         return id.toLanguageKey("advancement")
     }
@@ -19,7 +19,7 @@ class AdvancementIdentifier(id: Identifier): TypedIdentifier(id) {
     }
 
     companion object: TypedIdentifierCompanion() {
-        override fun getRegistryIds(): List<Identifier> {
+        override fun getRegistryIds(): List<ResourceLocation> {
             val registry = getAdvancementRegistry() ?: return emptyList()
 
             return registry.keySet().toList()
