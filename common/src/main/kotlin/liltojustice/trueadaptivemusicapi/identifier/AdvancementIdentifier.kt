@@ -1,12 +1,8 @@
 package liltojustice.trueadaptivemusicapi.identifier
 
-import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.client.Minecraft
-import net.minecraft.core.Registry
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceLocation
-import kotlin.jvm.optionals.getOrNull
+import net.minecraft.resources.Identifier
 
 @Suppress("UNUSED")
 class AdvancementIdentifier(id: ResourceLocation): TypedIdentifier(id) {
@@ -19,17 +15,9 @@ class AdvancementIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     }
 
     companion object: TypedIdentifierCompanion() {
-        override fun getRegistryIds(): List<ResourceLocation> {
-            val registry = getAdvancementRegistry() ?: return emptyList()
-
-            return registry.keySet().toList()
-        }
-
-        private fun getAdvancementRegistry(): Registry<Advancement>? {
-            return Minecraft.getInstance().level
-                ?.registryAccess()
-                ?.lookup(Registries.ADVANCEMENT)
-                ?.getOrNull()
+        override fun getRegistryIds(): List<Identifier> {
+            return Minecraft.getInstance().singleplayerServer?.advancements?.allAdvancements?.map { it.id }
+                ?: emptyList()
         }
     }
 }
