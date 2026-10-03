@@ -15,7 +15,7 @@ class AdvancementIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     }
 
     fun matches(advancement: AdvancementHolder): Boolean {
-        return getAdvancementRegistry()?.get(id)?.getOrNull()?.`is`(advancement.id) ?: false
+        return advancement.id == id
     }
 
     companion object: TypedIdentifierCompanion() {
