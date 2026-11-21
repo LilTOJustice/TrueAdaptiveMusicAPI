@@ -46,5 +46,4 @@ jobs:
 
       - name: Release
         run: |
-          ./gradlew :fabric:jreleaserDeploy
-          ./gradlew :neoforge:jreleaserDeploy
+          ./gradlew :fabric:jreleaserDeploy || ./gradlew :neoforge:jreleaserDeploy
