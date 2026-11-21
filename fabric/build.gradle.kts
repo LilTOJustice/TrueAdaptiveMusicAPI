@@ -4,7 +4,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "2.3.20"
     id("net.fabricmc.fabric-loom") version "1.17-SNAPSHOT"
-    id("org.jreleaser") version "1.27.0"
     id("maven-publish")
 }
 
