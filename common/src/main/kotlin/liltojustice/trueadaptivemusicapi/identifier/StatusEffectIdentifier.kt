@@ -10,7 +10,7 @@ class StatusEffectIdentifier(id: ResourceLocation): TypedIdentifier(id) {
     }
 
     companion object: TypedIdentifierCompanion() {
-        override fun getRegistryIds(): List<Identifier> {
+        override fun getRegistryIds(): List<ResourceLocation> {
             return BuiltInRegistries.MOB_EFFECT.keySet().toList()
         }
     }
