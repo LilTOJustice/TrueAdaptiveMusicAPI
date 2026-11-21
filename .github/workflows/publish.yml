@@ -45,4 +45,6 @@ jobs:
         run: ./gradlew clean publish
 
       - name: Release
-        run: ./gradlew jreleaserDeploy
+        run: |
+          ./gradlew :fabric:jreleaserDeploy
+          ./gradlew :neoforge:jreleaserDeploy
