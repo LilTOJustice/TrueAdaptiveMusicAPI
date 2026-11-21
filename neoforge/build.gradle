@@ -43,6 +43,11 @@ base {
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 kotlin.jvmToolchain(25)
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 neoForge {
     version = project.neoforge_version
 
