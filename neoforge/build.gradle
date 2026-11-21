@@ -187,7 +187,6 @@ jreleaser {
         pgp {
             active = 'ALWAYS'
             armored = true
-            mode = 'COMMAND'
         }
     }
     deploy {
