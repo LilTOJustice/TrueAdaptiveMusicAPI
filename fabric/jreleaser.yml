@@ -1,0 +1,11 @@
+signing:
+  pgp:
+    active: ALWAYS
+    armored: true
+deploy:
+  maven:
+    mavenCentral:
+      sonatype:
+        active: RELEASE
+        url: https://central.sonatype.com/api/v1/publisher
+        stagingRepositories: [../build/fabric/staging-deploy]
