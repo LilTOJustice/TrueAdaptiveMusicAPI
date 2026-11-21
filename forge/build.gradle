@@ -150,7 +150,7 @@ publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'io.github.liltojustice'
-            artifactId = archives_base_name + "-neoforge"
+            artifactId = archives_base_name + "-forge"
 
             from components.java
 
@@ -201,7 +201,7 @@ jreleaser {
                 sonatype {
                     active = 'ALWAYS'
                     url = 'https://central.sonatype.com/api/v1/publisher'
-                    stagingRepository('../build/neoforge/staging-deploy')
+                    stagingRepository('../build/forge/staging-deploy')
                 }
             }
         }
