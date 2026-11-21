@@ -11,11 +11,18 @@ version = "${project.property("mod_version") as String}+${project.property("mine
 group = project.property("mod_group_id") as String
 
 base {
-    archivesName.set(project.property("archives_base_name") as String + "-fabric")
+    archivesName.set(project.property("archives_base_name") as String)
 }
 
 val targetJavaVersion = (project.property("java_version") as String).toInt()
-java.toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    withSourcesJar()
+    withJavadocJar()
+}
+
+repositories {
+}
 
 dependencies {
     minecraft("com.mojang:minecraft:${project.property("minecraft_version")}")
@@ -64,6 +71,8 @@ tasks.jar {
     from("LICENSE") {
         rename { "${it}_${project.base.archivesName.get()}" }
     }
+
+    archiveVersion = "${project.property("archives_base_name")}-fabric-${version}"
 }
 
 sourceSets {
@@ -78,4 +87,50 @@ sourceSets {
             srcDirs("../common/src/main/resources")
         }
     }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            groupId = "io.github.liltojustice"
+            artifactId = "${project.property("archives_base_name").toString()}-fabric"
+
+            from(components["java"])
+
+            pom {
+                name = "True Adaptive Music API"
+                description = "API for the True Adaptive Music mod for Minecraft"
+                url = "https://github.com/LilTOJustice/TrueAdaptiveMusicAPI"
+                inceptionYear = "2025"
+                licenses {
+                    license {
+                        name = "GPL-3.0"
+                        url = "https://www.gnu.org/licenses/gpl-3.0.en.html#license-text"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "liltojustice"
+                        name = "LilTOJustice"
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git"
+                    developerConnection = "scm:git:ssh://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git"
+                    url = "https://github.com/LilTOJustice/TrueAdaptiveMusicAPI"
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir("staging-deploy").get().asFile.toURI()
+        }
+    }
+}
+
+jreleaser {
+    configFile.set(file("jreleaser.yml"))
+    gitRootSearch = true
 }
