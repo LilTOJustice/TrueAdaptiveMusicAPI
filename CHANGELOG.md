@@ -1,3 +1,3 @@
-True Adaptive Music API v1.3.0
+True Adaptive Music API v1.4.0
 
-- Neo/Forge support!
+- Migration to Maven
