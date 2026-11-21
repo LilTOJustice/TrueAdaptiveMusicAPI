@@ -15,7 +15,11 @@ base {
 }
 
 val targetJavaVersion = (project.property("java_version") as String).toInt()
-java.toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    withSourcesJar()
+    withJavadocJar()
+}
 
 repositories {
 }
@@ -68,7 +72,7 @@ tasks.jar {
         rename { "${it}_${project.base.archivesName.get()}" }
     }
 
-    archiveVersion = "fabric-${version}"
+    archiveVersion = "${project.property("archives_base_name")}-fabric-${version}"
 }
 
 sourceSets {
@@ -87,20 +91,46 @@ sourceSets {
 
 publishing {
     publications {
-        create<MavenPublication>("fabric") {
-            artifactId = "${project.property("mod_id")}-fabric"
+        create<MavenPublication>("maven") {
+            groupId = "io.github.liltojustice"
+            artifactId = "${project.property("archives_base_name").toString()}-fabric"
+
             from(components["java"])
+
+            pom {
+                name = "True Adaptive Music API"
+                description = "API for the True Adaptive Music mod for Minecraft"
+                url = "https://github.com/LilTOJustice/TrueAdaptiveMusicAPI"
+                inceptionYear = "2025"
+                licenses {
+                    license {
+                        name = "GPL-3.0"
+                        url = "https://www.gnu.org/licenses/gpl-3.0.en.html#license-text"
+                    }
+                }
+                developers {
+                    developer {
+                        id = "liltojustice"
+                        name = "LilTOJustice"
+                    }
+                }
+                scm {
+                    connection = "scm:git:https://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git"
+                    developerConnection = "scm:git:ssh://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git"
+                    url = "https://github.com/LilTOJustice/TrueAdaptiveMusicAPI"
+                }
+            }
         }
     }
 
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/liltojustice/${project.property("archives_base_name")}")
-            credentials {
-                username = "LilTOJustice"
-                password = System.getenv("GITHUB_PACKAGE_TOKEN")
-            }
+            url = layout.buildDirectory.dir("staging-deploy").get().asFile.toURI()
         }
     }
+}
+
+jreleaser {
+    configFile.set(file("jreleaser.yml"))
+    gitRootSearch = true
 }

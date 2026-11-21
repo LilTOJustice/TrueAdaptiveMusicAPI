@@ -40,6 +40,11 @@ var javaVersion = java_version.toInteger()
 java.toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
 kotlin.jvmToolchain(javaVersion)
 
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
 neoForge {
     version = project.neoforge_version
 
@@ -130,24 +135,65 @@ idea {
 }
 
 tasks.jar {
-    archiveVersion = "neoforge-${version}"
+    archiveVersion = "${archives_base_name}-neoforge-${version}"
 }
 
 publishing {
     publications {
-        create("neoforge", MavenPublication) {
-            artifactId = "${mod_id}-neoforge"
+        maven(MavenPublication) {
+            groupId = 'io.github.liltojustice'
+            artifactId = archives_base_name + "-neoforge"
+
             from components.java
+
+            pom {
+                name = 'True Adaptive Music API'
+                description = 'API for the True Adaptive Music mod for Minecraft'
+                url = 'https://github.com/LilTOJustice/TrueAdaptiveMusicAPI'
+                inceptionYear = '2025'
+                licenses {
+                    license {
+                        name = 'GPL-3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html#license-text'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'liltojustice'
+                        name = 'LilTOJustice'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git'
+                    developerConnection = 'scm:git:ssh://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git'
+                    url = 'https://github.com/LilTOJustice/TrueAdaptiveMusicAPI'
+                }
+            }
         }
     }
 
     repositories {
         maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/liltojustice/${project.property("archives_base_name")}")
-            credentials {
-                username = "LilTOJustice"
-                password = System.getenv("GITHUB_PACKAGE_TOKEN")
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+jreleaser {
+    signing {
+        pgp {
+            active = 'ALWAYS'
+            armored = true
+        }
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('../build/neoforge/staging-deploy')
+                }
             }
         }
     }
