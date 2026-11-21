@@ -11,7 +11,7 @@ class StatusEffectIdentifier(id: Identifier): TypedIdentifier(id) {
 
     companion object: TypedIdentifierCompanion() {
         override fun getRegistryIds(): List<Identifier> {
-            return BuiltInRegistries.CONSUME_EFFECT_TYPE.keySet().toList()
+            return BuiltInRegistries.MOB_EFFECT.keySet().toList()
         }
     }
 }
