@@ -10,6 +10,7 @@ plugins {
     id 'idea'
     id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
     id 'org.jetbrains.kotlin.jvm' version '2.3.20'
+    id 'maven-publish'
 }
 
 sourceSets {
@@ -33,9 +34,17 @@ base {
     archivesName = archives_base_name + "-forge"
 }
 
+tasks.jar {
+    archiveVersion = "${archives_base_name}-forge-${version}"
+}
+
 var javaVersion = java_version.toInteger()
-java.toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
 kotlin.jvmToolchain(javaVersion)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(javaVersion)
+    withSourcesJar()
+    withJavadocJar()
+}
 
 minecraft {
     mappings channel: "official", version: minecraft_version
@@ -135,4 +144,66 @@ tasks.named('jar', Jar).configure {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'io.github.liltojustice'
+            artifactId = archives_base_name + "-neoforge"
+
+            from components.java
+
+            pom {
+                name = 'True Adaptive Music API'
+                description = 'API for the True Adaptive Music mod for Minecraft'
+                url = 'https://github.com/LilTOJustice/TrueAdaptiveMusicAPI'
+                inceptionYear = '2025'
+                licenses {
+                    license {
+                        name = 'GPL-3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html#license-text'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'liltojustice'
+                        name = 'LilTOJustice'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git'
+                    developerConnection = 'scm:git:ssh://github.com/LilTOJustice/TrueAdaptiveMusicAPI.git'
+                    url = 'https://github.com/LilTOJustice/TrueAdaptiveMusicAPI'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url = layout.buildDirectory.dir('staging-deploy')
+        }
+    }
+}
+
+
+jreleaser {
+    signing {
+        pgp {
+            active = 'ALWAYS'
+            armored = true
+        }
+    }
+    deploy {
+        maven {
+            mavenCentral {
+                sonatype {
+                    active = 'ALWAYS'
+                    url = 'https://central.sonatype.com/api/v1/publisher'
+                    stagingRepository('../build/neoforge/staging-deploy')
+                }
+            }
+        }
+    }
 }
