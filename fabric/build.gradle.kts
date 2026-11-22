@@ -7,11 +7,11 @@ plugins {
     id("maven-publish")
 }
 
-version = "${project.property("mod_version") as String}+${project.property("minecraft_version")}"
+version = project.property("mod_version") as String
 group = project.property("mod_group_id") as String
 
 base {
-    archivesName.set(project.property("archives_base_name") as String)
+    archivesName.set("${project.property("archives_base_name")}-fabric-${project.property("minecraft_version")}")
 }
 
 val targetJavaVersion = (project.property("java_version") as String).toInt()

@@ -31,11 +31,7 @@ group = mod_group_id
 version = mod_version
 
 base {
-    archivesName = "${archives_base_name}-forge-${version}"
-}
-
-tasks.jar {
-    archiveVersion = "${archives_base_name}-forge-${version}"
+    archivesName = "${archives_base_name}-forge-${minecraft_version}"
 }
 
 var javaVersion = java_version.toInteger()
