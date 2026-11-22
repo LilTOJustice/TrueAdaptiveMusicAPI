@@ -20,7 +20,7 @@ sourceSets {
     }
 }
 
-version = mod_version + '+' + minecraft_version
+version = mod_version
 group = mod_group_id
 
 repositories {
@@ -33,7 +33,7 @@ repositories {
 }
 
 base {
-    archivesName = archives_base_name + "-neoforge"
+    archivesName = "${archives_base_name}-fabric-${minecraft_version}"
 }
 
 var javaVersion = java_version.toInteger()
@@ -130,15 +130,11 @@ idea {
     }
 }
 
-tasks.jar {
-    archiveVersion = "${archives_base_name}-neoforge-${version}"
-}
-
 publishing {
     publications {
         maven(MavenPublication) {
             groupId = 'io.github.liltojustice'
-            artifactId = archives_base_name + "-neoforge"
+            artifactId = "${archives_base_name}-neoforge-${minecraft_version}"
 
             from components.java
 
