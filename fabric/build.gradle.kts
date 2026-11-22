@@ -93,7 +93,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "io.github.liltojustice"
-            artifactId = "${project.property("archives_base_name").toString()}-fabric"
+            artifactId = "${project.property("archives_base_name").toString()}-fabric-${project.property("minecraft_version")}"
 
             from(components["java"])
 
