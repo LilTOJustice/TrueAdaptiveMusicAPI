@@ -7,11 +7,11 @@ plugins {
     id("maven-publish")
 }
 
-version = "${project.property("mod_version") as String}+${project.property("minecraft_version")}"
-group = project.property("mod_group_id") as String
+version = project.property("mod_version").toString()
+group = project.property("mod_group_id").toString()
 
 base {
-    archivesName.set(project.property("archives_base_name") as String)
+    archivesName.set("${project.property("archives_base_name")}-fabric-${project.property("minecraft_version")}")
 }
 
 val targetJavaVersion = (project.property("java_version") as String).toInt()
@@ -68,8 +68,6 @@ tasks.jar {
     from("LICENSE") {
         rename { "${it}_${project.base.archivesName.get()}" }
     }
-
-    archiveVersion = "${project.property("archives_base_name")}-fabric-${version}"
 }
 
 sourceSets {
@@ -90,7 +88,7 @@ publishing {
     publications {
         create<MavenPublication>("maven") {
             groupId = "io.github.liltojustice"
-            artifactId = "${project.property("archives_base_name").toString()}-fabric"
+            artifactId = "${project.property("archives_base_name")}-fabric-${project.property("minecraft_version")}"
 
             from(components["java"])
 
